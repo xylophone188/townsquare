@@ -1,5 +1,5 @@
 <template>
-  <!-- SVG Gradients -->
+  <!-- SVG渐变 -->
   <div id="gradients">
     <svg
       width="0"
@@ -26,9 +26,9 @@ export default {
   data() {
     return {
       gradients: [
-        ["demon", "#ce0100", "#000"],
-        ["townsfolk", "#1f65ff", "#000"],
-        ["default", "#4E4E4E", "#000"]
+        ["恶魔", "#ce0100", "#000"],
+        ["镇民", "#1f65ff", "#000"],
+        ["默认", "#4E4E4E", "#000"]
       ]
     };
   }

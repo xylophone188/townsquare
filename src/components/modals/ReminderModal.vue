@@ -1,20 +1,20 @@
 <template>
   <Modal
-    v-if="modals.reminder && availableReminders.length && players[playerIndex]"
-    @close="toggleModal('reminder')"
+      v-if="modals.reminder && availableReminders.length && players[playerIndex]"
+      @close="toggleModal('reminder')"
   >
-    <h3>Choose a reminder token:</h3>
+    <h3>选择一个提醒标记：</h3>
     <ul class="reminders">
       <li
-        v-for="reminder in availableReminders"
-        class="reminder"
-        :class="[reminder.role]"
-        :key="reminder.role + ' ' + reminder.name"
-        @click="addReminder(reminder)"
+          v-for="reminder in availableReminders"
+          class="reminder"
+          :class="[reminder.role]"
+          :key="reminder.role + ' ' + reminder.name"
+          @click="addReminder(reminder)"
       >
         <span
-          class="icon"
-          :style="{
+            class="icon"
+            :style="{
             backgroundImage: `url(${
               reminder.image && grimoire.isImageOptIn
                 ? reminder.image
@@ -35,8 +35,8 @@ import Modal from "./Modal";
 import { mapMutations, mapState } from "vuex";
 
 /**
- * Helper function that maps a reminder name with a role-based object that provides necessary visual data.
- * @param role The role for which the reminder should be generated
+ * 辅助函数，将提醒名称映射为基于角色的对象，提供必要的视觉数据。
+ * @param role 应生成提醒的角色
  * @return {function(*): {image: string|string[]|string|*, role: *, name: *, imageAlt: string|*}}
  */
 const mapReminder = ({ id, image, imageAlt }) => name => ({
@@ -54,15 +54,15 @@ export default {
       let reminders = [];
       const { players, bluffs } = this.$store.state.players;
       this.$store.state.roles.forEach(role => {
-        // add reminders from player roles
+        // 添加来自玩家角色的提醒
         if (players.some(p => p.role.id === role.id)) {
           reminders = [...reminders, ...role.reminders.map(mapReminder(role))];
         }
-        // add reminders from bluff/other roles
+        // 添加来自假象/其他角色的提醒
         else if (bluffs.some(bluff => bluff.id === role.id)) {
           reminders = [...reminders, ...role.reminders.map(mapReminder(role))];
         }
-        // add global reminders
+        // 添加全局提醒
         if (role.remindersGlobal && role.remindersGlobal.length) {
           reminders = [
             ...reminders,
@@ -70,21 +70,21 @@ export default {
           ];
         }
       });
-      // add fabled reminders
+      // 添加神话提醒
       this.$store.state.players.fabled.forEach(role => {
         reminders = [...reminders, ...role.reminders.map(mapReminder(role))];
       });
 
-      // add out of script traveler reminders
+      // 添加脚本之外的旅行者提醒
       this.$store.state.otherTravelers.forEach(role => {
         if (players.some(p => p.role.id === role.id)) {
           reminders = [...reminders, ...role.reminders.map(mapReminder(role))];
         }
       });
 
-      reminders.push({ role: "good", name: "Good" });
-      reminders.push({ role: "evil", name: "Evil" });
-      reminders.push({ role: "custom", name: "Custom note" });
+      reminders.push({ role: "good", name: "好人" });
+      reminders.push({ role: "evil", name: "坏人" });
+      reminders.push({ role: "custom", name: "自定义备注" });
       return reminders;
     },
     ...mapState(["modals", "grimoire"]),
@@ -95,7 +95,7 @@ export default {
       const player = this.$store.state.players.players[this.playerIndex];
       let value;
       if (reminder.role === "custom") {
-        const name = prompt("Add a custom reminder note");
+        const name = prompt("添加一个自定义提醒备注");
         if (!name) return;
         value = [...player.reminders, { role: "custom", name }];
       } else {

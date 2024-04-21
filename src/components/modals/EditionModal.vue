@@ -1,7 +1,7 @@
 <template>
   <Modal class="editions" v-if="modals.edition" @close="toggleModal('edition')">
     <div v-if="!isCustom">
-      <h3>Select an edition:</h3>
+      <h3>请选择一个版本：</h3>
       <ul class="editions">
         <li
           v-for="edition in editions"
@@ -24,29 +24,17 @@
             backgroundImage: `url(${require('../../assets/editions/custom.png')})`
           }"
         >
-          Custom Script / Characters
+          自定义脚本 / 角色
         </li>
       </ul>
     </div>
     <div class="custom" v-else>
-      <h3>Load custom script / characters</h3>
-      To play with a custom script, you need to select the characters you want
-      to play with in the official
-      <a href="https://script.bloodontheclocktower.com/" target="_blank"
-        >Script Tool</a
-      >
-      and then upload the generated "custom-list.json" either directly here or
-      provide a URL to such a hosted JSON file.<br />
+      <h3>加载自定义脚本 / 角色</h3>
+      要使用自定义脚本，您需要在官方<a href="https://script.bloodontheclocktower.com/" target="_blank">脚本工具</a>中选择要使用的角色，然后将生成的“custom-list.json”文件上传到此处或提供指向托管的 JSON 文件的 URL。<br />
       <br />
-      To play with custom characters, please read
-      <a
-        href="https://github.com/bra1n/townsquare#custom-characters"
-        target="_blank"
-        >the documentation</a
-      >
-      on how to write a custom character definition file.
-      <b>Only load custom JSON files from sources that you trust!</b>
-      <h3>Some popular custom scripts:</h3>
+      要使用自定义角色，请阅读有关如何编写自定义角色定义文件的<a href="https://github.com/bra1n/townsquare#custom-characters" target="_blank">文档</a>。
+      <b>仅从您信任的来源加载自定义 JSON 文件！</b>
+      <h3>一些流行的自定义脚本：</h3>
       <ul class="scripts">
         <li
           v-for="(script, index) in scripts"
@@ -64,16 +52,16 @@
       />
       <div class="button-group">
         <div class="button" @click="openUpload">
-          <font-awesome-icon icon="file-upload" /> Upload JSON
+          <font-awesome-icon icon="file-upload" /> 上传 JSON
         </div>
         <div class="button" @click="promptURL">
-          <font-awesome-icon icon="link" /> Enter URL
+          <font-awesome-icon icon="link" /> 输入 URL
         </div>
         <div class="button" @click="readFromClipboard">
-          <font-awesome-icon icon="clipboard" /> Use JSON from Clipboard
+          <font-awesome-icon icon="clipboard" /> 使用剪贴板中的 JSON
         </div>
         <div class="button" @click="isCustom = false">
-          <font-awesome-icon icon="undo" /> Back
+          <font-awesome-icon icon="undo" /> 返回
         </div>
       </div>
     </div>
@@ -135,7 +123,7 @@ export default {
             const roles = JSON.parse(reader.result);
             this.parseRoles(roles);
           } catch (e) {
-            alert("Error reading custom script: " + e.message);
+            alert("读取自定义脚本时出错：" + e.message);
           }
           this.$refs.upload.value = "";
         });
@@ -143,7 +131,7 @@ export default {
       }
     },
     promptURL() {
-      const url = prompt("Enter URL to a custom-script.json file");
+      const url = prompt("请输入自定义脚本的 URL");
       if (url) {
         this.handleURL(url);
       }
@@ -155,7 +143,7 @@ export default {
           const script = await res.json();
           this.parseRoles(script);
         } catch (e) {
-          alert("Error loading custom script: " + e.message);
+          alert("加载自定义脚本时出错：" + e.message);
         }
       }
     },
@@ -165,7 +153,7 @@ export default {
         const roles = JSON.parse(text);
         this.parseRoles(roles);
       } catch (e) {
-        alert("Error reading custom script: " + e.message);
+        alert("读取自定义脚本时出错：" + e.message);
       }
     },
     parseRoles(roles) {
@@ -181,7 +169,7 @@ export default {
         "setEdition",
         Object.assign({}, meta, { id: "custom" })
       );
-      // check for fabled and set those too, if present
+// 检查是否包含神话角色，如果存在，则也设置
       if (roles.some((role) => this.$store.state.fabled.has(role.id || role))) {
         const fabled = [];
         roles.forEach((role) => {

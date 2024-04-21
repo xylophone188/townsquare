@@ -8,16 +8,16 @@
       @click="toggleModal('reference')"
       icon="address-card"
       class="toggle"
-      title="Show Character Reference"
+      title="显示角色参考"
     />
     <h3>
-      Night Order
+      夜晚顺序
       <font-awesome-icon icon="cloud-moon" />
-      {{ edition.name || "Custom Script" }}
+      {{ edition.name || "自定义脚本" }}
     </h3>
     <div class="night">
       <ul class="first">
-        <li class="headline">First Night</li>
+        <li class="headline">首晚</li>
         <li
           v-for="role in rolesFirstNight"
           :key="role.name"
@@ -56,7 +56,7 @@
         </li>
       </ul>
       <ul class="other">
-        <li class="headline">Other Nights</li>
+        <li class="headline">其他夜晚</li>
         <li
           v-for="role in rolesOtherNight"
           :key="role.name"
@@ -114,30 +114,27 @@ export default {
         rolesFirstNight.push(
           {
             id: "evil",
-            name: "Minion info",
+            name: "爪牙信息",
             firstNight: 5,
-            team: "minion",
-            players: this.players.filter(p => p.role.team === "minion"),
+            team: "爪牙",
+            players: this.players.filter(p => p.role.team === "爪牙"),
             firstNightReminder:
-              "• If more than one Minion, they all make eye contact with each other. " +
-              "• Show the “This is the Demon” card. Point to the Demon."
+              "• 如果有多个爪牙，请它们相互眼神交流。 • 展示“这是魔鬼”卡片。指向魔鬼。"
           },
           {
             id: "evil",
-            name: "Demon info & bluffs",
+            name: "魔鬼信息与虚张声势",
             firstNight: 8,
-            team: "demon",
-            players: this.players.filter(p => p.role.team === "demon"),
+            team: "魔鬼",
+            players: this.players.filter(p => p.role.team === "魔鬼"),
             firstNightReminder:
-              "• Show the “These are your minions” card. Point to each Minion. " +
-              "• Show the “These characters are not in play” card. Show 3 character tokens of good " +
-              "characters not in play."
+              "• 展示“这些是你的爪牙”卡片。指向每个爪牙。 • 展示“这些角色不在游戏中”卡片。展示三张未在游戏中的善良角色的角色代币。"
           }
         );
       }
       this.roles.forEach(role => {
         const players = this.players.filter(p => p.role.id === role.id);
-        if (role.firstNight && (role.team !== "traveler" || players.length)) {
+        if (role.firstNight && (role.team !== "旅行者" || players.length)) {
           rolesFirstNight.push(Object.assign({ players }, role));
         }
       });
@@ -153,7 +150,7 @@ export default {
       const rolesOtherNight = [];
       this.roles.forEach(role => {
         const players = this.players.filter(p => p.role.id === role.id);
-        if (role.otherNight && (role.team !== "traveler" || players.length)) {
+        if (role.otherNight && (role.team !== "旅行者" || players.length)) {
           rolesOtherNight.push(Object.assign({ players }, role));
         }
       });
@@ -363,7 +360,7 @@ ul {
   }
 }
 
-/** hide players when town square is set to "public" **/
+/** 当广场设置为“公共”时隐藏玩家 **/
 #townsquare.public ~ .night-reference .modal .player {
   display: none;
 }

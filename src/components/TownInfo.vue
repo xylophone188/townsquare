@@ -1,9 +1,9 @@
 <template>
-  <ul class="info">
+  <ul class="信息">
     <li
-      class="edition"
-      :class="['edition-' + edition.id]"
-      :style="{
+        class="版本"
+        :class="['版本-' + edition.id]"
+        :style="{
         backgroundImage: `url(${
           edition.logo && grimoire.isImageOptIn
             ? edition.logo
@@ -12,59 +12,59 @@
       }"
     ></li>
     <li v-if="players.length - teams.traveler < 5">
-      Please add more players!
+      请添加更多玩家！
     </li>
     <li>
-      <span class="meta" v-if="!edition.isOfficial">
+      <span class="元数据" v-if="!edition.isOfficial">
         {{ edition.name }}
-        {{ edition.author ? "by " + edition.author : "" }}
+        {{ edition.author ? "作者：" + edition.author : "" }}
       </span>
       <span>
-        {{ players.length }} <font-awesome-icon class="players" icon="users" />
+        {{ players.length }} <font-awesome-icon class="玩家" icon="users" />
       </span>
       <span>
         {{ teams.alive }}
-        <font-awesome-icon class="alive" icon="heartbeat" />
+        <font-awesome-icon class="存活" icon="heartbeat" />
       </span>
       <span>
-        {{ teams.votes }} <font-awesome-icon class="votes" icon="vote-yea" />
+        {{ teams.votes }} <font-awesome-icon class="投票" icon="vote-yea" />
       </span>
     </li>
     <li v-if="players.length - teams.traveler >= 5">
       <span>
         {{ teams.townsfolk }}
-        <font-awesome-icon class="townsfolk" icon="user-friends" />
+        <font-awesome-icon class="普通村民" icon="user-friends" />
       </span>
       <span>
         {{ teams.outsider }}
         <font-awesome-icon
-          class="outsider"
-          :icon="teams.outsider > 1 ? 'user-friends' : 'user'"
+            class="外来者"
+            :icon="teams.outsider > 1 ? 'user-friends' : 'user'"
         />
       </span>
       <span>
         {{ teams.minion }}
         <font-awesome-icon
-          class="minion"
-          :icon="teams.minion > 1 ? 'user-friends' : 'user'"
+            class="爪牙"
+            :icon="teams.minion > 1 ? 'user-friends' : 'user'"
         />
       </span>
       <span>
         {{ teams.demon }}
         <font-awesome-icon
-          class="demon"
-          :icon="teams.demon > 1 ? 'user-friends' : 'user'"
+            class="恶魔"
+            :icon="teams.demon > 1 ? 'user-friends' : 'user'"
         />
       </span>
       <span v-if="teams.traveler">
         {{ teams.traveler }}
         <font-awesome-icon
-          class="traveler"
-          :icon="teams.traveler > 1 ? 'user-friends' : 'user'"
+            class="旅行者"
+            :icon="teams.traveler > 1 ? 'user-friends' : 'user'"
         />
       </span>
       <span v-if="grimoire.isNight">
-        Night phase
+        夜晚阶段
         <font-awesome-icon :icon="['fas', 'cloud-moon']" />
       </span>
     </li>
@@ -86,10 +86,10 @@ export default {
         traveler: players.length - nonTravelers,
         alive,
         votes:
-          alive +
-          players.filter(
-            player => player.isDead === true && player.isVoteless !== true
-          ).length
+            alive +
+            players.filter(
+                player => player.isDead === true && player.isVoteless !== true
+            ).length
       };
     },
     ...mapState(["edition", "grimoire"]),
@@ -101,7 +101,7 @@ export default {
 <style lang="scss" scoped>
 @import "../vars.scss";
 
-.info {
+.信息 {
   position: absolute;
   display: flex;
   width: 20%;
@@ -122,13 +122,13 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     text-shadow: 0 2px 1px black, 0 -2px 1px black, 2px 0 1px black,
-      -2px 0 1px black;
+    -2px 0 1px black;
 
     span {
       white-space: nowrap;
     }
 
-    .meta {
+    .元数据 {
       text-align: center;
       flex-basis: 100%;
       font-family: PiratesBay, sans-serif;
@@ -139,33 +139,33 @@ export default {
       margin-right: 10px;
     }
 
-    .players {
+    .玩家 {
       color: #00f700;
     }
-    .alive {
+    .存活 {
       color: #ff4a50;
     }
-    .votes {
+    .投票 {
       color: #fff;
     }
-    .townsfolk {
+    .普通村民 {
       color: $townsfolk;
     }
-    .outsider {
+    .外来者 {
       color: $outsider;
     }
-    .minion {
+    .爪牙 {
       color: $minion;
     }
-    .demon {
+    .恶魔 {
       color: $demon;
     }
-    .traveler {
+    .旅行者 {
       color: $traveler;
     }
   }
 
-  li.edition {
+  li.版本 {
     width: 220px;
     height: 200px;
     max-width: 100%;

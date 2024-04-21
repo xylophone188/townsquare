@@ -8,12 +8,12 @@
       @click="toggleModal('nightOrder')"
       icon="cloud-moon"
       class="toggle"
-      title="Show Night Order"
+      title="显示夜晚顺序"
     />
     <h3>
-      Character Reference
+      角色参考
       <font-awesome-icon icon="address-card" />
-      {{ edition.name || "Custom Script" }}
+      {{ edition.name || "自定义脚本" }}
     </h3>
     <div
       v-for="(teamRoles, team) in rolesGrouped"
@@ -53,7 +53,7 @@
 
     <div class="team jinxed" v-if="jinxed.length">
       <aside>
-        <h4>Jinxed</h4>
+        <h4>被诅咒的</h4>
       </aside>
       <ul>
         <li v-for="(jinx, index) in jinxed" :key="index">
@@ -67,7 +67,7 @@
           ></span>
           <span
             class="icon"
-            :style="{
+              :style="{
               backgroundImage: `url(${require('../../assets/icons/' +
                 jinx.second.id +
                 '.png')})`
@@ -75,7 +75,7 @@
           ></span>
           <div class="role">
             <span class="name"
-              >{{ jinx.first.name }} & {{ jinx.second.name }}</span
+            >{{ jinx.first.name }} & {{ jinx.second.name }}</span
             >
             <span class="ability">{{ jinx.reason }}</span>
           </div>
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     /**
-     * Return a list of jinxes in the form of role IDs and a reason
+     * 返回角色 ID 和原因的诅咒列表
      * @returns {*[]} [{first, second, reason}]
      */
     jinxed: function() {
@@ -294,7 +294,7 @@ ul {
   }
 }
 
-/** break into 1 column below 1200px **/
+/** 在 1200px 以下断成一列 **/
 @media screen and (max-width: 1199.98px) {
   .modal {
     max-width: 60%;
@@ -320,14 +320,14 @@ ul {
   }
 }
 
-/** trim icon size on maximized one-column sheet **/
+/** 在最大化的一列表格上修剪图标大小 **/
 @media screen and (max-width: 991.98px) {
   .characters .modal.maximized ul li .icon {
     width: 5.1vh;
   }
 }
 
-/** hide players when town square is set to "public" **/
+/** 当城镇广场设置为 "公共" 时隐藏玩家 **/
 #townsquare.public ~ .characters .modal .player {
   display: none;
 }

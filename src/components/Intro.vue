@@ -2,20 +2,14 @@
   <div class="intro">
     <img src="static/apple-icon.png" alt="" class="logo" />
     <div>
-      Welcome to the (unofficial)
-      <b>Virtual Town Square and Grimoire</b> for Blood on the Clocktower!
-      Please add more players through the
+      欢迎来到（非官方）
+      <b>《染·钟楼谜团》虚拟镇广场与魔典</b>！请通过右上角的
       <span class="button" @click="toggleMenu">
-        <font-awesome-icon icon="cog" /> Menu
+        <font-awesome-icon icon="cog" /> 菜单
       </span>
-      on the top right or by pressing <b>[A]</b>. You can also join a game
-      session by pressing <b>[J]</b>.<br />
+      或按下 <b>[A]</b> 键添加更多玩家。您也可以通过按下 <b>[J]</b> 键加入游戏会话。<br />
       <div class="footer">
-        This project is free and open source and can be found on
-        <a href="https://github.com/bra1n/townsquare" target="_blank">GitHub</a
-        >. It is not affiliated with The Pandemonium Institute. "Blood on the
-        Clocktower" is a trademark of Steven Medway and The Pandemonium
-        Institute.
+        抬杠扛把子基于免费开源的项目上开发。它与 Pandemonium Institute 没有任何关联。"染·钟楼谜团" 是 Steven Medway 和 Pandemonium Institute 的商标。
       </div>
     </div>
     <a
@@ -43,7 +37,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// Intro
+// 介绍
 .intro {
   text-align: center;
   width: 50%;

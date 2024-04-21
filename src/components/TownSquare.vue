@@ -30,8 +30,8 @@
       :class="{ closed: !isBluffsOpen }"
     >
       <h3>
-        <span v-if="session.isSpectator">Other characters</span>
-        <span v-else>Demon bluffs</span>
+        <span v-if="session.isSpectator">其他角色</span>
+        <span v-else>恶魔虚张声势</span>
         <font-awesome-icon icon="times-circle" @click.stop="toggleBluffs" />
         <font-awesome-icon icon="plus-circle" @click.stop="toggleBluffs" />
       </h3>
@@ -48,7 +48,7 @@
 
     <div class="fabled" :class="{ closed: !isFabledOpen }" v-if="fabled.length">
       <h3>
-        <span>Fabled</span>
+        <span>神话</span>
         <font-awesome-icon icon="times-circle" @click.stop="toggleFabled" />
         <font-awesome-icon icon="plus-circle" @click.stop="toggleFabled" />
       </h3>
@@ -59,7 +59,7 @@
           @click="removeFabled(index)"
         >
           <div
-            class="night-order first"
+            class="夜晚顺序 first"
             v-if="nightOrder.get(role).first && grimoire.isNightOrder"
           >
             <em>{{ nightOrder.get(role).first }}.</em>
@@ -155,19 +155,19 @@ export default {
       if (this.session.isSpectator || this.session.lockedVote) return;
       if (
         confirm(
-          `Do you really want to remove ${this.players[playerIndex].name}?`
+          `是否确定要移除${this.players[playerIndex].name}?`
         )
       ) {
         const { nomination } = this.session;
         if (nomination) {
           if (nomination.includes(playerIndex)) {
-            // abort vote if removed player is either nominator or nominee
+            // 如果被移除的玩家是提名者或被提名者，则中止投票
             this.$store.commit("session/nomination");
           } else if (
             nomination[0] > playerIndex ||
             nomination[1] > playerIndex
           ) {
-            // update nomination array if removed player has lower index
+            // 如果被移除的玩家的索引较低，则更新提名数组
             this.$store.commit("session/setNomination", [
               nomination[0] > playerIndex ? nomination[0] - 1 : nomination[0],
               nomination[1] > playerIndex ? nomination[1] - 1 : nomination[1]
@@ -184,7 +184,7 @@ export default {
         this.swap = from;
       } else {
         if (this.session.nomination) {
-          // update nomination if one of the involved players is swapped
+          // 如果涉及到其中一个交换的玩家，则更新提名
           const swapTo = this.players.indexOf(to);
           const updatedNomination = this.session.nomination.map(nom => {
             if (nom === this.swap) return swapTo;
@@ -212,7 +212,7 @@ export default {
         this.move = from;
       } else {
         if (this.session.nomination) {
-          // update nomination if it is affected by the move
+          // 如果移动受到影响，则更新提名
           const moveTo = this.players.indexOf(to);
           const updatedNomination = this.session.nomination.map(nom => {
             if (nom === this.move) return moveTo;
@@ -499,7 +499,7 @@ export default {
   z-index: 2;
 }
 
-/**** Night reminders ****/
+/**** 夜晚提醒 ****/
 .night-order {
   position: absolute;
   width: 100%;

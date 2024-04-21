@@ -1,27 +1,31 @@
 <template>
   <Modal
-    class="roles"
-    v-if="modals.roles && nonTravelers >= 5"
-    @close="toggleModal('roles')"
+      class="roles"
+      v-if="modals.roles && nonTravelers >= 5"
+      @close="toggleModal('roles')"
   >
-    <h3>Select the characters for {{ nonTravelers }} players:</h3>
+    <h3>为 {{ nonTravelers }} 名玩家选择角色：</h3>
     <ul class="tokens" v-for="(teamRoles, team) in roleSelection" :key="team">
       <li class="count" :class="[team]">
-        {{ teamRoles.reduce((a, { selected }) => a + selected, 0) }} /
-        {{ game[nonTravelers - 5][team] }}
+        {{
+          teamRoles.reduce((a, { selected }) => a + selected, 0)
+        }} /
+        {{
+          game[nonTravelers - 5][team]
+        }}
       </li>
       <li
-        v-for="role in teamRoles"
-        :class="[role.team, role.selected ? 'selected' : '']"
-        :key="role.id"
-        @click="role.selected = role.selected ? 0 : 1"
+          v-for="role in teamRoles"
+          :class="[role.team, role.selected ? 'selected' : '']"
+          :key="role.id"
+          @click="role.selected = role.selected ? 0 : 1"
       >
         <Token :role="role" />
         <font-awesome-icon icon="exclamation-triangle" v-if="role.setup" />
         <div class="buttons" v-if="allowMultiple">
           <font-awesome-icon
-            icon="minus-circle"
-            @click.stop="role.selected--"
+              icon="minus-circle"
+              @click.stop="role.selected--"
           />
           <span>{{ role.selected > 1 ? "x" + role.selected : "" }}</span>
           <font-awesome-icon icon="plus-circle" @click.stop="role.selected++" />
@@ -31,29 +35,28 @@
     <div class="warning" v-if="hasSelectedSetupRoles">
       <font-awesome-icon icon="exclamation-triangle" />
       <span>
-        Warning: there are characters selected that modify the game setup! The
-        randomizer does not account for these characters.
+        警告：已选择修改游戏设置的角色！随机选择器不考虑这些角色。
       </span>
     </div>
     <label class="multiple" :class="{ checked: allowMultiple }">
       <font-awesome-icon :icon="allowMultiple ? 'check-square' : 'square'" />
       <input type="checkbox" name="allow-multiple" v-model="allowMultiple" />
-      Allow duplicate characters
+      允许重复角色
     </label>
     <div class="button-group">
       <div
-        class="button"
-        @click="assignRoles"
-        :class="{
+          class="button"
+          @click="assignRoles"
+          :class="{
           disabled: selectedRoles > nonTravelers || !selectedRoles
         }"
       >
         <font-awesome-icon icon="people-arrows" />
-        Assign {{ selectedRoles }} characters randomly
+        随机分配 {{ selectedRoles }} 个角色
       </div>
       <div class="button" @click="selectRandomRoles">
         <font-awesome-icon icon="random" />
-        Shuffle characters
+        打乱角色
       </div>
     </div>
   </Modal>
@@ -82,12 +85,12 @@ export default {
   computed: {
     selectedRoles: function() {
       return Object.values(this.roleSelection)
-        .map(roles => roles.reduce((a, { selected }) => a + selected, 0))
-        .reduce((a, b) => a + b, 0);
+          .map(roles => roles.reduce((a, { selected }) => a + selected, 0))
+          .reduce((a, b) => a + b, 0);
     },
     hasSelectedSetupRoles: function() {
       return Object.values(this.roleSelection).some(roles =>
-        roles.some(role => role.selected && role.setup)
+          roles.some(role => role.selected && role.setup)
       );
     },
     ...mapState(["roles", "modals"]),
@@ -111,7 +114,7 @@ export default {
         for (let x = 0; x < composition[team]; x++) {
           if (this.roleSelection[team]) {
             const available = this.roleSelection[team].filter(
-              role => !role.selected
+                role => !role.selected
             );
             if (available.length) {
               randomElement(available).selected = 1;
@@ -122,18 +125,18 @@ export default {
     },
     assignRoles() {
       if (this.selectedRoles <= this.nonTravelers && this.selectedRoles) {
-        // generate list of selected roles and randomize it
+        // 生成所选角色列表并随机排序
         const roles = Object.values(this.roleSelection)
-          .map(roles =>
-            roles
-              // duplicate roles selected more than once and filter unselected
-              .reduce((a, r) => [...a, ...Array(r.selected).fill(r)], [])
-          )
-          // flatten into a single array
-          .reduce((a, b) => [...a, ...b], [])
-          .map(a => [Math.random(), a])
-          .sort((a, b) => a[0] - b[0])
-          .map(a => a[1]);
+            .map(roles =>
+                roles
+                    // 复制被选择超过一次的角色并过滤未选择的角色
+                    .reduce((a, r) => [...a, ...Array(r.selected).fill(r)], [])
+            )
+            // 展平为单个数组
+            .reduce((a, b) => [...a, ...b], [])
+            .map(a => [Math.random(), a])
+            .sort((a, b) => a[0] - b[0])
+            .map(a => a[1]);
         this.players.forEach(player => {
           if (player.role.team !== "traveler" && roles.length) {
             const value = roles.pop();

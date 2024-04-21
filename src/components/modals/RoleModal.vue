@@ -1,48 +1,49 @@
 <template>
   <Modal v-if="modals.role && availableRoles.length" @close="close">
     <h3>
-      Choose a new character for
+      为
       {{
         playerIndex >= 0 && players.length
-          ? players[playerIndex].name
-          : "bluffing"
+            ? players[playerIndex].name
+            : "虚张声势"
       }}
+      选择一个新角色
     </h3>
     <ul class="tokens" v-if="tab === 'editionRoles' || !otherTravelers.size">
       <li
-        v-for="role in availableRoles"
-        :class="[role.team]"
-        :key="role.id"
-        @click="setRole(role)"
+          v-for="role in availableRoles"
+          :class="[role.team]"
+          :key="role.id"
+          @click="setRole(role)"
       >
         <Token :role="role" />
       </li>
     </ul>
     <ul class="tokens" v-if="tab === 'otherTravelers' && otherTravelers.size">
       <li
-        v-for="role in otherTravelers.values()"
-        :class="[role.team]"
-        :key="role.id"
-        @click="setRole(role)"
+          v-for="role in otherTravelers.values()"
+          :class="[role.team]"
+          :key="role.id"
+          @click="setRole(role)"
       >
         <Token :role="role" />
       </li>
     </ul>
     <div
-      class="button-group"
-      v-if="playerIndex >= 0 && otherTravelers.size && !session.isSpectator"
+        class="button-group"
+        v-if="playerIndex >= 0 && otherTravelers.size && !session.isSpectator"
     >
       <span
-        class="button"
-        :class="{ townsfolk: tab === 'editionRoles' }"
-        @click="tab = 'editionRoles'"
-        >Edition Roles</span
+          class="button"
+          :class="{ townsfolk: tab === 'editionRoles' }"
+          @click="tab = 'editionRoles'"
+      >版本角色</span
       >
       <span
-        class="button"
-        :class="{ townsfolk: tab === 'otherTravelers' }"
-        @click="tab = 'otherTravelers'"
-        >Other Travelers</span
+          class="button"
+          :class="{ townsfolk: tab === 'otherTravelers' }"
+          @click="tab = 'otherTravelers'"
+      >其他旅行者</span
       >
     </div>
   </Modal>
@@ -61,11 +62,11 @@ export default {
       const availableRoles = [];
       const players = this.$store.state.players.players;
       this.$store.state.roles.forEach(role => {
-        // don't show bluff roles that are already assigned to players
+        // 不显示已分配给玩家的虚张声势角色
         if (
-          this.playerIndex >= 0 ||
-          (this.playerIndex < 0 &&
-            !players.some(player => player.role.id === role.id))
+            this.playerIndex >= 0 ||
+            (this.playerIndex < 0 &&
+                !players.some(player => player.role.id === role.id))
         ) {
           availableRoles.push(role);
         }
@@ -85,14 +86,14 @@ export default {
   methods: {
     setRole(role) {
       if (this.playerIndex < 0) {
-        // assign to bluff slot (index < 0)
+        // 分配给虚张声势槽（索引<0）
         this.$store.commit("players/setBluff", {
           index: this.playerIndex * -1 - 1,
           role
         });
       } else {
         if (this.session.isSpectator && role.team === "traveler") return;
-        // assign to player
+        // 分配给玩家
         const player = this.$store.state.players.players[this.playerIndex];
         this.$store.commit("players/update", {
           player,

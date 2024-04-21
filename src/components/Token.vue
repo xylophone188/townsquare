@@ -1,9 +1,9 @@
 <template>
   <div class="token" @click="setRole" :class="[role.id]">
     <span
-      class="icon"
-      v-if="role.id"
-      :style="{
+        class="icon"
+        v-if="role.id"
+        :style="{
         backgroundImage: `url(${
           role.image && grimoire.isImageOptIn
             ? role.image
@@ -12,27 +12,27 @@
       }"
     ></span>
     <span
-      class="leaf-left"
-      v-if="role.firstNight || role.firstNightReminder"
+        class="leaf-left"
+        v-if="role.firstNight || role.firstNightReminder"
     ></span>
     <span
-      class="leaf-right"
-      v-if="role.otherNight || role.otherNightReminder"
+        class="leaf-right"
+        v-if="role.otherNight || role.otherNightReminder"
     ></span>
     <span v-if="reminderLeaves" :class="['leaf-top' + reminderLeaves]"></span>
     <span class="leaf-orange" v-if="role.setup"></span>
     <svg viewBox="0 0 150 150" class="name">
       <path
-        d="M 13 75 C 13 160, 138 160, 138 75"
-        id="curve"
-        fill="transparent"
+          d="M 13 75 C 13 160, 138 160, 138 75"
+          id="curve"
+          fill="transparent"
       />
       <text
-        width="150"
-        x="66.6%"
-        text-anchor="middle"
-        class="label mozilla"
-        :font-size="role.name | nameToFontSize"
+          width="150"
+          x="66.6%"
+          text-anchor="middle"
+          class="label mozilla"
+          :font-size="role.name | nameToFontSize"
       >
         <textPath xlink:href="#curve">
           {{ role.name }}
@@ -60,8 +60,8 @@ export default {
   computed: {
     reminderLeaves: function() {
       return (
-        (this.role.reminders || []).length +
-        (this.role.remindersGlobal || []).length
+          (this.role.reminders || []).length +
+          (this.role.remindersGlobal || []).length
       );
     },
     ...mapState(["grimoire"])
@@ -102,8 +102,8 @@ export default {
       &.mozilla {
         stroke: none;
         filter: drop-shadow(0 1.5px 0 black) drop-shadow(0 -1.5px 0 black)
-          drop-shadow(1.5px 0 0 black) drop-shadow(-1.5px 0 0 black)
-          drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+        drop-shadow(1.5px 0 0 black) drop-shadow(-1.5px 0 0 black)
+        drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
       }
     }
   }
@@ -179,8 +179,8 @@ export default {
           stroke: none;
           text-shadow: none;
           filter: drop-shadow(0 1.5px 0 white) drop-shadow(0 -1.5px 0 white)
-            drop-shadow(1.5px 0 0 white) drop-shadow(-1.5px 0 0 white)
-            drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+          drop-shadow(1.5px 0 0 white) drop-shadow(-1.5px 0 0 white)
+          drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
         }
       }
     }

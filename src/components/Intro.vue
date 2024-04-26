@@ -3,7 +3,7 @@
     <img src="static/apple-icon.png" alt="" class="logo" />
     <div>
       欢迎来到（非官方）
-      <b>《染·钟楼谜团》虚拟镇广场与魔典</b>！请通过右上角的
+      <b>《染·钟楼谜团》虚拟城镇广场与魔典</b>！请通过右上角的
       <span class="button" @click="toggleMenu">
         <font-awesome-icon icon="cog" /> 菜单
       </span>

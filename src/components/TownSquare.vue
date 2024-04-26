@@ -31,7 +31,7 @@
     >
       <h3>
         <span v-if="session.isSpectator">其他角色</span>
-        <span v-else>恶魔虚张声势</span>
+        <span v-else>恶魔的伪装身份</span>
         <font-awesome-icon icon="times-circle" @click.stop="toggleBluffs" />
         <font-awesome-icon icon="plus-circle" @click.stop="toggleBluffs" />
       </h3>
@@ -59,7 +59,7 @@
           @click="removeFabled(index)"
         >
           <div
-            class="夜晚顺序 first"
+            class="night-order first"
             v-if="nightOrder.get(role).first && grimoire.isNightOrder"
           >
             <em>{{ nightOrder.get(role).first }}.</em>

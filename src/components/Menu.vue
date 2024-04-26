@@ -131,7 +131,7 @@
               <em>{{ session.ping }}ms</em>
             </li>
             <li @click="copySessionUrl">
-              复制玩家链接
+              复制房间号
               <em><font-awesome-icon icon="copy"/></em>
             </li>
             <li v-if="!session.isSpectator" @click="distributeRoles">
@@ -142,11 +142,14 @@
               v-if="session.voteHistory.length || !session.isSpectator"
               @click="toggleModal('voteHistory')"
             >
-              投票历史<em>[V]</em>
+              投票记录<em>[V]</em>
             </li>
             <li @click="leaveSession">
-              离开会话
+              解散房间
               <em>{{ session.sessionId }}</em>
+            </li>
+            <li @click="logout">
+              退出登录
             </li>
           </template>
         </template>
@@ -169,22 +172,22 @@
           <!-- 角色 -->
           <li class="headline">角色</li>
           <li v-if="!session.isSpectator" @click="toggleModal('edition')">
-            选择版本
+            选择剧本
             <em>[E]</em>
           </li>
           <li
             @click="toggleModal('roles')"
             v-if="!session.isSpectator && players.length > 4"
           >
-            选择与分配
+            配置角色
             <em>[C]</em>
           </li>
           <li v-if="!session.isSpectator" @click="toggleModal('fabled')">
-            添加传说
+            添加传奇角色
             <em><font-awesome-icon icon="dragon"/></em>
           </li>
           <li @click="clearRoles" v-if="players.length">
-            移除所有
+            移除全部
             <em><font-awesome-icon icon="trash-alt"/></em>
           </li>
         </template>
@@ -193,11 +196,11 @@
           <!-- 帮助 -->
           <li class="headline">帮助</li>
           <li @click="toggleModal('reference')">
-            参考表
+            角色技能
             <em>[R]</em>
           </li>
           <li @click="toggleModal('nightOrder')">
-            夜晚顺序表
+            行动顺序
             <em>[N]</em>
           </li>
           <li @click="toggleModal('gameState')">
@@ -313,10 +316,18 @@ export default {
     addPlayer() {
       if (this.session.isSpectator) return;
       if (this.players.length >= 20) return;
+      const name = "玩家" + (this.players.length + 1);
+      if (name) {
+        this.$store.commit("players/add", name);
+      }
+/*
+      if (this.session.isSpectator) return;
+      if (this.players.length >= 20) return;
       const name = prompt("玩家名称");
       if (name) {
         this.$store.commit("players/add", name);
       }
+*/
     },
     randomizeSeatings() {
       if (this.session.isSpectator) return;

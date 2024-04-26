@@ -64,8 +64,12 @@
         />
       </span>
       <span v-if="grimoire.isNight">
-        夜晚阶段
-        <font-awesome-icon :icon="['fas', 'cloud-moon']" />
+                <font-awesome-icon :icon="['fas', 'sun']"/>
+      <em v-if="session.sessionId">房间号：{{ session.sessionId }}</em>
+      </span>
+      <span v-if="!grimoire.isNight">
+                <font-awesome-icon :icon="['fas', 'sun']"/>
+      <em v-if="session.sessionId">房间号：{{ session.sessionId }}</em>
       </span>
     </li>
   </ul>
@@ -92,7 +96,7 @@ export default {
             ).length
       };
     },
-    ...mapState(["edition", "grimoire"]),
+    ...mapState(["edition", "grimoire","session"]),
     ...mapState("players", ["players"])
   }
 };
